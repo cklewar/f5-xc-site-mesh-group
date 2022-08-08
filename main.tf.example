@@ -1,0 +1,6 @@
+module "f5xc_namespace" {
+  source              = "./modules/f5xc/namespace"
+  f5xc_api_p12_file   = "./api-creds.p12"
+  f5xc_api_url        = "https://playground.staging.volterra.us/api"
+  f5xc_namespace_name = "my-namespace-01"
+}
