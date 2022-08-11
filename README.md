@@ -59,6 +59,18 @@ Plan: 2 to add, 0 to change, 0 to destroy.
 ## Create F5XC Site Mesh Group
 
 ```hcl
+variable "project_prefix" {
+  type        = string
+  description = "prefix string put in front of string"
+  default     = "f5xc"
+}
+
+variable "project_suffix" {
+  type        = string
+  description = "prefix string put at the end of string"
+  default     = "01"
+}
+
 variable "f5xc_api_p12_file" {
   type    = string
 }
@@ -67,29 +79,33 @@ variable "f5xc_api_url" {
   type    = string
 }
 
+variable "f5xc_tenant" {
+  type    = string
+}
+
 variable "f5xc_namespace" {
-  type = string
+  type    = string
   default = "shared"
 }
 
 module "virtual_site" {
-  source                 = "./modules/f5xc/site/virtual"
-  f5xc_api_p12_file      = var.f5xc_api_p12_file
-  f5xc_api_url           = var.f5xc_api_url
-  f5xc_namespace         = var.f5xc_namespace
-  f5xc_virtual_site_name = "virtual-site-01"
-  f5xc_virtual_site_type = "CUSTOMER_EDGE"
+  source                                = "./modules/f5xc/site/virtual"
+  f5xc_api_p12_file                     = var.f5xc_api_p12_file
+  f5xc_api_url                          = var.f5xc_api_url
+  f5xc_namespace                        = var.f5xc_namespace
+  f5xc_virtual_site_name                = "virtual-site-01"
+  f5xc_virtual_site_type                = "CUSTOMER_EDGE"
   f5xc_virtual_site_selector_expression = ["site_mesh_group in (aws-azure-gcp)"]
 }
 
 module "site_mesh_group" {
-  source                                = "./modules/f5xc/site-mesh-group"
-  f5xc_api_p12_file                     = var.f5xc_api_p12_file
-  f5xc_api_url                          = var.f5xc_api_url
-  f5xc_namespace                        = var.f5xc_namespace
-  f5xc_site_2_site_connection_type      = "full_mesh"
-  f5xc_site_mesh_group_name             = "site-mesh-group-01"
-  f5xc_tenant                           = "playground"
-  f5xc_virtual_site_name                = module.virtual_site.virtual-site["name"]
+  source                           = "./modules/f5xc/site-mesh-group"
+  f5xc_api_p12_file                = var.f5xc_api_p12_file
+  f5xc_api_url                     = var.f5xc_api_url
+  f5xc_namespace                   = var.f5xc_namespace
+  f5xc_site_2_site_connection_type = "full_mesh"
+  f5xc_site_mesh_group_name        = "site-mesh-group-01"
+  f5xc_tenant                      = var.f5xc_tenant
+  f5xc_virtual_site_name           = module.virtual_site.virtual-site["name"]
 }
 ```
