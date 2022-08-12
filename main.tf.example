@@ -24,7 +24,7 @@ variable "f5xc_tenant" {
 
 variable "f5xc_namespace" {
   type    = string
-  default = "shared"
+  default = "system"
 }
 
 module "virtual_site" {
