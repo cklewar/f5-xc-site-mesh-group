@@ -42,14 +42,14 @@ provider "registry.terraform.io/hashicorp/null" {
 }
 
 provider "registry.terraform.io/volterraedge/volterra" {
-  version     = "0.11.11"
-  constraints = ">= 0.11.11"
+  version     = "0.11.14"
+  constraints = ">= 0.11.14"
   hashes = [
-    "h1:Uyhhgcfl9ZuHIDtOh1nL8b6euAnFiPHcSC5f/VU3mcg=",
-    "zh:1cf3fc3c93896cba4f5a169249bee1d01c5f0455b0b3aac3ed5d99cab196d822",
-    "zh:24b26a21c5e4e7ed2d1e6982d5f6cafec5518cc69a280da32586c8e61eec9fbd",
-    "zh:27fe1e388f480d6dfb080e7ddc44cfe645e83b3396599066ca2c6bac0b988cea",
-    "zh:750671dda096059f766993f2bfbb3f849261ab8bdce8126b2dd76248b403c613",
-    "zh:db844aa0f96960c5ebbba2503558f5be2c164fef70d204bd5a6962c7c17f0cc1",
+    "h1:Dq4tMYBJPm0zlnr6VKlsIOyBCOEDigu8OmzrDVaZVSQ=",
+    "zh:1644590db68de9f2388339e9d56a7199d985cdcc1e19dbc8c2ae39e97143ed53",
+    "zh:2d5f210d6063530190620232e8dd56b3f1386e3431117aaf112f94ee12ab4aa4",
+    "zh:3fb2c3acf30e5d70bcdb369650e18a290900d1093b0ee7e71cc4f01d69e8f5e4",
+    "zh:8e2c26e14ab92925dae15c6f8db952e1689ebdb205a93a03865d111ae2548aa8",
+    "zh:d520e7fb3151f061937ea5a2986b76419c7190cb0baf7062fd2f12bedcf399ef",
   ]
 }
