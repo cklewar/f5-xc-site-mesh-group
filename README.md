@@ -85,27 +85,75 @@ variable "f5xc_tenant" {
 
 variable "f5xc_namespace" {
   type    = string
-  default = "shared"
+  default = "system"
+}
+
+provider "volterra" {
+  api_p12_file = var.f5xc_api_p12_file
+  url          = var.f5xc_api_url
+  alias        = "default"
 }
 
 module "virtual_site" {
   source                                = "./modules/f5xc/site/virtual"
-  f5xc_api_p12_file                     = var.f5xc_api_p12_file
-  f5xc_api_url                          = var.f5xc_api_url
-  f5xc_namespace                        = var.f5xc_namespace
+  f5xc_namespace                        = "shared"
   f5xc_virtual_site_name                = format("%s-virtual-site-%s", var.project_prefix, var.project_suffix)
   f5xc_virtual_site_type                = "CUSTOMER_EDGE"
   f5xc_virtual_site_selector_expression = ["site_mesh_group in (aws-azure-gcp)"]
+  providers = {
+    volterra = volterra.default
+  }
 }
 
-module "site_mesh_group" {
+module "site_mesh_group_full_mesh" {
   source                           = "./modules/f5xc/site-mesh-group"
-  f5xc_api_p12_file                = var.f5xc_api_p12_file
-  f5xc_api_url                     = var.f5xc_api_url
   f5xc_namespace                   = var.f5xc_namespace
-  f5xc_site_2_site_connection_type = "full_mesh"
-  f5xc_site_mesh_group_name        = format("%s-site-mesh-group-%s", var.project_prefix, var.project_suffix)
   f5xc_tenant                      = var.f5xc_tenant
+  f5xc_site_2_site_connection_type = "full_mesh"
+  f5xc_site_mesh_group_name        = format("%s-site-mesh-group-full-%s", var.project_prefix, var.project_suffix)
+  f5xc_site_mesh_group_description = "F5XC Full Mesh SMG"
   f5xc_virtual_site_name           = module.virtual_site.virtual-site["name"]
+  f5xc_labels                      = {
+    "ves.io/fleet" = "some-fleet"
+  }
+
+  providers = {
+    volterra = volterra.default
+  }
+}
+
+module "site_mesh_group_hub_mesh" {
+  source                           = "./modules/f5xc/site-mesh-group"
+  f5xc_namespace                   = var.f5xc_namespace
+  f5xc_tenant                      = var.f5xc_tenant
+  f5xc_site_2_site_connection_type = "hub_mesh"
+  f5xc_site_mesh_group_name        = format("%s-site-mesh-group-hub-%s", var.project_prefix, var.project_suffix)
+  f5xc_site_mesh_group_description = "F5XC Full Mesh SMG"
+  f5xc_virtual_site_name           = module.virtual_site.virtual-site["name"]
+  f5xc_labels                      = {
+    "ves.io/fleet" = "some-fleet"
+  }
+
+  providers = {
+    volterra = volterra.default
+  }
+}
+
+module "site_mesh_group_spoke_mesh" {
+  source                           = "./modules/f5xc/site-mesh-group"
+  f5xc_namespace                   = var.f5xc_namespace
+  f5xc_tenant                      = var.f5xc_tenant
+  f5xc_site_2_site_connection_type = "spoke_mesh"
+  f5xc_site_site_hub_name          = "some-hub"
+  f5xc_site_mesh_group_name        = format("%s-site-mesh-group-spoke-%s", var.project_prefix, var.project_suffix)
+  f5xc_site_mesh_group_description = "F5XC Full Mesh SMG"
+  f5xc_virtual_site_name           = module.virtual_site.virtual-site["name"]
+  f5xc_labels                      = {
+    "ves.io/fleet" = "some-fleet"
+  }
+
+  providers = {
+    volterra = volterra.default
+  }
 }
 ```
