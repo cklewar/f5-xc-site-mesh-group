@@ -10,6 +10,7 @@ jobs:
       - name: Check out repository and submodules
         uses: actions/checkout@v3
         with:
+          ref: v0.11.14
           submodules: recursive
       - name: Checkout support repo
         uses: actions/checkout@v3
