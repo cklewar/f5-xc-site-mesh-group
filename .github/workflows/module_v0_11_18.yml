@@ -49,7 +49,7 @@ jobs:
         run: terraform validate -no-color
   site-mesh-group-module-plan:
     runs-on: ubuntu-latest
-    needs: [Site Mesh Group-module-validate]
+    needs: [site-mesh-group-module-validate]
     steps:
       - run: echo "The job was automatically triggered by a ${{github.event_name}} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
@@ -107,7 +107,7 @@ jobs:
       - run: echo "This job's status is ${{ job.status }}."
   site-mesh-group-module-apply:
     runs-on: ubuntu-latest
-    needs: [Site Mesh Group-module-plan]
+    needs: [site-mesh-group-module-plan]
     steps:
       - run: echo "The job was automatically triggered by a ${{github.event_name}} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
@@ -165,7 +165,7 @@ jobs:
       - run: echo "This job's status is ${{ job.status }}."
   site-mesh-group-module-destroy:
     runs-on: ubuntu-latest
-    needs: [Site Mesh Group-module-apply]
+    needs: [site-mesh-group-module-apply]
     steps:
       - run: echo "The job was automatically triggered by a ${{github.event_name}} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
