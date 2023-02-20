@@ -8,17 +8,13 @@ terraform {
       name = "f5-xc-site-mesh-group-module"
     }
   }
-  
+
   required_providers {
     volterra = {
-      source = "volterraedge/volterra"
-<<<<<<< HEAD
+      source  = "volterraedge/volterra"
       version = "= 0.11.18"
-=======
-      version = "= 0.11.19"
->>>>>>> 0.11.19
     }
     local = ">= 2.2.3"
-    null = ">= 3.1.1"
+    null  = ">= 3.1.1"
   }
 }
