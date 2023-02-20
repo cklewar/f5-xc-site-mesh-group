@@ -12,7 +12,11 @@ terraform {
   required_providers {
     volterra = {
       source = "volterraedge/volterra"
+<<<<<<< HEAD
       version = "= 0.11.18"
+=======
+      version = "= 0.11.19"
+>>>>>>> 0.11.19
     }
     local = ">= 2.2.3"
     null = ">= 3.1.1"
